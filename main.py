@@ -54,8 +54,8 @@ def yolo_detecting(net, size, input_img, conf_threshold, nms_threshold) :
 
             # 객체 테두리, 텍스트, 출력
             cv.rectangle(draw_img, (x, y), (x + w, y + h), color, 2)
-            cv.rectangle(draw_img, (x - 1, y), (x + len(class_name) * 13 + 30, y - 20), color, -1)
-            cv.putText(draw_img, label, (x, y - 5), font, 0.7, (0, 0, 0), 1)
+            # cv.rectangle(draw_img, (x - 1, y), (x + len(class_name) * 13 + 30, y - 20), color, -1)
+            cv.putText(draw_img, label, (x, y - 5), font, 0.7, color, 1)
 
     return draw_img
 
@@ -72,7 +72,7 @@ with open("yolov3\coco.names", "r") as f:
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 
-img = cv.imread("image\img1.jpg")
+img = cv.imread("image\img6.jpg")
 result_img = yolo_detecting(yolo_cv, size_list[2], img, 0.5, 0.4)
 cv.imshow("result", result_img)
 cv.waitKey(0)
