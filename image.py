@@ -1,11 +1,13 @@
 import cv2 as cv
 import numpy as np
+# import time
+# import imutils
 
 
-def yolo_detecting(net, size, input_img, conf_threshold, nms_threshold) :
+def yolo_img_detect(net, size, input_img, conf_threshold, nms_threshold) :
     
     draw_img = input_img.copy()
-    height, width, channels = input_img.shape
+    height, width = input_img.shape[:2]
 
     layer_names = net.getLayerNames()
     output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
@@ -69,13 +71,18 @@ size_list = [320, 416, 608]
 classes = []
 with open("yolov3\coco.names", "r") as f:
     classes = [line.strip() for line in f.readlines()]
+
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 
-img = cv.imread("image\img7.jpg")
-img = cv.resize(img, None, fx = 0.2, fy = 0.2)
-result_img = yolo_detecting(yolo_cv, size_list[2], img, 0.7, 0.4)
+# 이미지 테스트
+img = cv.imread("sources\img6.jpg")
+img = cv.resize(img, None, fx = 0.5, fy = 0.5)
+input_sl = int(input("크기 입력(0~2) : "))
+result_img = yolo_img_detect(yolo_cv, size_list[input_sl], img, 0.7, 0.4)
+cv.imwrite("results\processed_img.jpg", result_img)
 cv.imshow("result", result_img)
 cv.waitKey(0)
 cv.destroyAllWindows()
 
+print("finished")
