@@ -1,5 +1,5 @@
 yolov3/yolov3.weights
 sources
 results
-learning_test/yolov3-tiny_3x.weights
-learning_test/yolov3-tiny_1x.weights
+custom_learning_test/yolov3-tiny_3x.weights
+custom_learning_test/yolov3-tiny_1x.weights
