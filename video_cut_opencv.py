@@ -6,7 +6,7 @@ start_frame = int(input("숫자 입력 : "))
 end_frame = int(input("숫자 입력 : "))
 
 
-vid = cv.VideoCapture("sources\_name.mp4")
+vid = cv.VideoCapture("sources\_pre.mp4")
 W = vid.get(cv.CAP_PROP_FRAME_WIDTH)
 H = vid.get(cv.CAP_PROP_FRAME_HEIGHT)
 fps = vid.get(cv.CAP_PROP_FPS)

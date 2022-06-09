@@ -76,7 +76,7 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 
 # 이미지 테스트
-img = cv.imread("sources\img6.jpg")
+img = cv.imread("sources\img7.jpg")
 img = cv.resize(img, None, fx = 0.5, fy = 0.5)
 input_sl = int(input("크기 입력(0~2) : "))
 result_img = yolo_img_detect(yolo_cv, size_list[input_sl], img, 0.7, 0.4)

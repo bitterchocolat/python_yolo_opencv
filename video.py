@@ -4,11 +4,10 @@ import numpy as np
 # import imutils
 
 
-def yolo_vid_detect(net, size, input_vid, conf_threshold, nms_threshold) :
+def yolo_vid_detect(net, size, input_vid, input_fps, conf_threshold, nms_threshold) :
     writer = None
     W = input_vid.get(cv.CAP_PROP_FRAME_WIDTH)
     H = input_vid.get(cv.CAP_PROP_FRAME_HEIGHT)
-    fps = input_vid.get(cv.CAP_PROP_FPS)
 
     while True :
         grabbed, frame = input_vid.read()
@@ -63,7 +62,7 @@ def yolo_vid_detect(net, size, input_vid, conf_threshold, nms_threshold) :
         
         if writer is None :
             fourcc = cv.VideoWriter_fourcc(*"DIVX")
-            writer = cv.VideoWriter("results\processed.avi", fourcc, fps, (int(W), int(H)))
+            writer = cv.VideoWriter("results\processed.avi", fourcc, input_fps, (int(W), int(H)))
 
         writer.write(frame)
 
@@ -85,8 +84,20 @@ colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 
 # 비디오 테스트
-vid = cv.VideoCapture("sources\dddd1.mp4")
+vid = cv.VideoCapture("sources\_pre.avi")
+fps = vid.get(cv.CAP_PROP_FPS)
 input_sl = int(input("크기 입력(0~2) : "))
-yolo_vid_detect(yolo_cv, size_list[input_sl], vid, 0.7, 0.4)
+
+while(True) :
+    setfps = int(input("프레임 입력(1~60, 자동설정: 0) : "))
+
+    if setfps == 0 :
+        setfps = fps
+        break
+    elif setfps < 0 or setfps > 60 :
+        print("다시 입력해주세요.\n")
+    else :
+        break
+yolo_vid_detect(yolo_cv, size_list[input_sl], vid, setfps, 0.7, 0.4)
 
 print("finished")
